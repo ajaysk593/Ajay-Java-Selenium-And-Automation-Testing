@@ -1,0 +1,64 @@
+package HarithaTestCases;
+
+import java.time.Duration;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class OnlineShoppingTestCases {
+
+
+		    public static void main(String[] args) throws InterruptedException {
+
+		        WebDriver driver = new ChromeDriver();
+		        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		        driver.manage().window().maximize();
+
+		        driver.get("file:///C:/Users/YourPC/Desktop/index.html");
+
+		        
+		        List<WebElement> products = driver.findElements(By.className("card"));
+		        System.out.println("Total Products Displayed: " + products.size());
+
+		        if (products.size() > 0) {
+		            System.out.println("Products are visible on page");
+		        } else {
+		            System.out.println("Products NOT visible");
+		        }
+
+		       
+		        driver.findElements(By.xpath("//button[text()='Add to Cart']")).get(0).click();
+		        Thread.sleep(1000);
+
+		        
+		        driver.findElements(By.xpath("//button[text()='Add to Cart']")).get(1).click();
+		        Thread.sleep(1000);
+
+		       
+		        driver.findElement(By.id("cartIcon")).click();
+		        Thread.sleep(1000);
+
+		        
+		        String cartCount = driver.findElement(By.id("cartCount")).getText();
+		        System.out.println("Cart Count: " + cartCount);
+
+		        if (cartCount.equals("2")) {
+		            System.out.println("✔ Cart Count updated successfully");
+		        } else {
+		            System.out.println("❌ Cart Count mismatch");
+		        }
+
+		        driver.findElement(By.xpath("(//button[text()='Remove'])[1]")).click();
+		        Thread.sleep(1000);
+
+		       
+		        String updatedCart = driver.findElement(By.id("cartCount")).getText();
+		        System.out.println("Updated Cart Count: " + updatedCart);
+
+		       
+		    }
+		}
+

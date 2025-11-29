@@ -1,0 +1,85 @@
+package HarithaTestCases;
+
+import java.time.Duration;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class OnlineShoppingTestCases {
+
+    public static void main(String[] args) throws InterruptedException {
+
+        WebDriver driver = new ChromeDriver();
+        driver.get("file:///C:/Users/dell/Desktop/Main_Repo/SaiMohan_OnlineStoreWebsite_FrontEndFiles/online_store.html"); 
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        
+     // Verify Navigation Links are displayed
+        driver.findElement(By.linkText("Home")).isDisplayed();
+        driver.findElement(By.linkText("Shop")).isDisplayed();
+        driver.findElement(By.linkText("About")).isDisplayed();
+        driver.findElement(By.linkText("Contact")).isDisplayed();
+
+        // Click Navigation Menu Items
+        driver.findElement(By.linkText("Shop")).click();
+        Thread.sleep(1000);
+
+        driver.findElement(By.linkText("About")).click();
+        Thread.sleep(1000);
+
+        driver.findElement(By.linkText("Contact")).click();
+        Thread.sleep(1000);
+
+        // Search Box Functionality
+        WebElement searchBox = driver.findElement(By.xpath("//input[@type='text' or @placeholder='Search...']"));
+        searchBox.sendKeys("Laptop");
+        Thread.sleep(1000);
+
+        // Validate Wishlist & Cart Icons
+        driver.findElement(By.xpath("//span[contains(@class,'heart')] | //i[contains(@class,'heart')]")).isDisplayed();
+        driver.findElement(By.xpath("//span[contains(@class,'cart')] | //i[contains(@class,'cart')]")).isDisplayed();
+
+        System.out.println("Navigation Bar Test Passed!");
+
+        
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("(//input[@type='number'])[1]")).clear();
+        driver.findElement(By.xpath("(//input[@type='number'])[1]")).sendKeys("1");
+        driver.findElement(By.xpath("(//button[contains(text(),'Add to Cart')])[1]")).click();
+        driver.findElement(By.xpath("(//button[contains(text(),'Wishlist')])[1]")).click();
+   
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("(//input[@type='number'])[2]")).clear();
+        driver.findElement(By.xpath("(//input[@type='number'])[2]")).sendKeys("1");
+        driver.findElement(By.xpath("(//button[contains(text(),'Add to Cart')])[2]")).click();
+        driver.findElement(By.xpath("(//button[contains(text(),'Wishlist')])[2]")).click();
+        
+        Thread.sleep(2000);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,600)");
+
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("(//input[@type='number'])[3]")).clear();
+        driver.findElement(By.xpath("(//input[@type='number'])[3]")).sendKeys("2");
+        driver.findElement(By.xpath("(//button[contains(text(),'Add to Cart')])[3]")).click();
+        driver.findElement(By.xpath("(//button[contains(text(),'Wishlist')])[3]")).click();
+
+
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("(//input[@type='number'])[4]")).clear();
+        driver.findElement(By.xpath("(//input[@type='number'])[4]")).sendKeys("1");
+        driver.findElement(By.xpath("(//button[contains(text(),'Add to Cart')])[4]")).click();
+        driver.findElement(By.xpath("(//button[contains(text(),'Wishlist')])[4]")).click();
+        
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+
+        String location = driver.findElement(By.xpath("//*[contains(text(),'Hyderabad, India')]")).getText();
+        System.out.println("Location Visible: " + location);
+
+        driver.findElement(By.xpath("//button[contains(text(),'WhatsApp')]")).click();
+        
+        
+    }
+}

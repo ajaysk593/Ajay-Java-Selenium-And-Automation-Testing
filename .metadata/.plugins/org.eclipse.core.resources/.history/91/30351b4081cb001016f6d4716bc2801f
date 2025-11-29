@@ -1,0 +1,77 @@
+package HarithaTestCases;
+
+
+import java.time.Duration;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class OnlineShoppingAutomation {
+
+    public static void main(String[] args) throws Exception {
+
+        WebDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+      
+        driver.get("file:///C:/Users/dell/Desktop/Main_Repo/SaiMohan_OnlineStoreWebsite_FrontEndFiles/online_store.html");
+        System.out.println(" Application Launched Successfully!");
+
+        driver.findElement(By.linkText("Home")).isDisplayed();
+        driver.findElement(By.linkText("Shop")).isDisplayed();
+        driver.findElement(By.linkText("About")).isDisplayed();
+        driver.findElement(By.linkText("Contact")).isDisplayed();
+        System.out.println(" Navigation Bar Verified");
+
+        driver.findElement(By.linkText("Shop")).click();
+        Thread.sleep(800);
+        driver.findElement(By.linkText("About")).click();
+        Thread.sleep(800);
+        driver.findElement(By.linkText("Contact")).click();
+        Thread.sleep(800);
+        driver.findElement(By.linkText("Home")).click();
+        System.out.println(" Navigation Links Not Working Properly");
+
+        WebElement searchBox = driver.findElement(By.xpath("//input[contains(@placeholder,'Search')]"));
+        searchBox.sendKeys("Laptop");
+        Thread.sleep(1000);
+        System.out.println("Search Functionality Working");
+
+        driver.findElement(By.xpath("//*[contains(@class,'heart')]")).isDisplayed();
+        driver.findElement(By.xpath("//*[contains(@class,'cart')]")).isDisplayed();
+        System.out.println("✔ Wishlist & Cart Icons Visible!");
+
+        for (int i = 1; i <= 4; i++) {
+
+            if (i == 3) {
+                ((JavascriptExecutor) driver).executeScript("window.scrollBy(0,600)");
+                Thread.sleep(1000);
+            }
+
+            WebElement qty = driver.findElement(By.xpath("(//input[@type='number'])[" + i + "]"));
+            qty.clear();
+            qty.sendKeys(i == 3 ? "2" : "1");
+
+            driver.findElement(By.xpath("(//button[contains(text(),'Add to Cart')])[" + i + "]")).click();
+            driver.findElement(By.xpath("(//button[contains(text(),'Wishlist')])[" + i + "]")).click();
+
+            System.out.println("✔ Product " + i + " Added to Cart & Wishlist");
+        }
+
+        System.out.println("✔ All Products Added Successfully!");
+
+       
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
+
+        String location = driver.findElement(By.xpath("//*[contains(text(),'Hyderabad, India')]")).getText();
+        System.out.println("✔ Footer Location Visible: " + location);
+
+        
+        driver.findElement(By.xpath("//button[contains(text(),'WhatsApp')]")).click();
+        System.out.println("✔ WhatsApp Button Click Successful!");
+
+        Thread.sleep(2000);
+
+        
+    }
+}

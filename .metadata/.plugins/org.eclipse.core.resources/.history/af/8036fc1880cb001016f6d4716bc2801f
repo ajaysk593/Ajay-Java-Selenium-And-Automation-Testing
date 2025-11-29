@@ -1,0 +1,5 @@
+package HarithaTestCases;
+
+public @interface AfterMethod {
+
+}

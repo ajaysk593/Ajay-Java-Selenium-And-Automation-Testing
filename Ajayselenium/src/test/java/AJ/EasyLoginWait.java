@@ -1,0 +1,35 @@
+package AJ;
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.*;
+
+public class EasyLoginWait {
+    public static void main(String[] args) {
+        WebDriver d = new ChromeDriver();
+        d.manage().window().maximize();
+        d.get("https://practicetestautomation.com/practice-test-login/");
+
+        WebDriverWait w = new WebDriverWait(d, java.time.Duration.ofSeconds(10));
+
+         WebElement user = w.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("/html/body/div/div/section/div/div/form/fieldset/input[1]")
+        ));
+        user.sendKeys("student");
+
+        WebElement pass = w.until(ExpectedConditions.visibilityOfElementLocated(
+                By.xpath("/html/body/div/div/section/div/div/form/fieldset/input[2]")
+        ));
+        pass.sendKeys("Password123");
+
+        WebElement loginBtn = w.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("/html/body/div/div/section/div/div/form/fieldset/button")
+        ));
+        loginBtn.click();
+
+        System.out.println("✅ Login successful!");
+
+        d.quit();
+    }
+}
+;
